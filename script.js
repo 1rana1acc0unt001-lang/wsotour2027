@@ -25,10 +25,17 @@ function showSection(sectionId) {
     document.querySelectorAll('.section-tabs button').forEach(el => el.classList.remove('active'));
     document.getElementById('sec-' + sectionId).classList.add('active');
     document.getElementById('tab-' + sectionId).classList.add('active');
-    if (sectionId !== 'schedule') resetView();
+    
+    // マップが存在し、かつスケジュール以外のタブを選んだ時だけリセット
+    if (map && sectionId !== 'schedule') {
+        resetView();
+    }
 }
 
 function animateFlight(targetLat, targetLng, targetZoom, duration = 3000) {
+    // 安全策：マップが読み込まれていない場合は実行しない
+    if (!map) return;
+
     if (currentAnimation) cancelAnimationFrame(currentAnimation);
     const startPos = map.getCenter();
     const startZoom = map.getZoom();
@@ -54,25 +61,32 @@ function animateFlight(targetLat, targetLng, targetZoom, duration = 3000) {
             curZoom = mid + (targetZoom - mid) * easeInOutCubic((progress - 0.5) * 2);
         }
         map.setZoom(curZoom);
-        if (progress < 1) currentAnimation = requestAnimationFrame(step);
+        
+        if (progress < 1) {
+            currentAnimation = requestAnimationFrame(step);
+        }
     }
     currentAnimation = requestAnimationFrame(step);
 }
 
 function flyTo(lat, lng, elementId) {
+    if (!map) return; // 安全策
+
     const targetEl = document.getElementById(elementId);
-    if (!targetEl) return; // 要素がない場合は何もしない（エラー防止）
+    if (!targetEl) return;
 
     if (targetEl.classList.contains('active')) {
         resetView();
         return;
     }
+    
     document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
     targetEl.classList.add('active');
     animateFlight(lat, lng, 11, 3000);
 }
 
 function resetView() {
+    if (!map) return; // 安全策
     document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
     animateFlight(HOME_CENTER.lat, HOME_CENTER.lng, HOME_ZOOM, 2500);
 }
@@ -80,5 +94,6 @@ function resetView() {
 function setLanguage(lang) {
     document.body.className = 'lang-' + lang;
     document.querySelectorAll('.lang-switcher button').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('btn-' + lang).classList.add('active');
+    const targetBtn = document.getElementById('btn-' + lang);
+    if (targetBtn) targetBtn.classList.add('active');
 }
