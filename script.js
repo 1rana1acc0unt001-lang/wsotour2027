@@ -61,6 +61,8 @@ function animateFlight(targetLat, targetLng, targetZoom, duration = 3000) {
 
 function flyTo(lat, lng, elementId) {
     const targetEl = document.getElementById(elementId);
+    if (!targetEl) return; // 要素がない場合は何もしない（エラー防止）
+
     if (targetEl.classList.contains('active')) {
         resetView();
         return;
