@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+}
+
+.container .content-container {
+    width: 50vw;
+}

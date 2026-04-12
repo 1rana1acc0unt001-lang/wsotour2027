@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2027ツアーページ/デモ版</title>
+    <link rel="stylesheet" id="tour-2027-css" href="style.css" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="content-container">
+            あああ
+        </div>
+        <div class="map-container">
+            <!-- <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1M_Ie8nUx1TqurwuAm9yh6EyJrb7Rpq0&ehbc=2E312F&noprof=1" width="640" height="480"></iframe> -->
+            <div id="map"></div>
+
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVKVotbia0cHkKC6KXwYHARrV2syqmFFY&callback=initMap" async defer></script>
+
+            <script>
+                function initMap() {
+                    // 地図の初期設定（ヨーロッパ付近を中心に）
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 5,
+                        center: { lat: 48.2082, lng: 16.3738 }, // ウィーン付近
+                        // 地図のデザインをカスタマイズしたい場合はここに追加
+                    });
+
+                    // KMLファイルのURL（GitHub PagesのRawリンクなどを指定）
+                    // 注意: ローカルのファイルパス（C:\...）では動きません。必ずURLが必要です。
+                    const kmlUrl = "https://raw.githubusercontent.com/あなたのユーザー名/リポジトリ名/main/JP.kml";
+
+                    // KMLレイヤーを作成して地図に追加
+                    const kmlLayer = new google.maps.KmlLayer({
+                        url: kmlUrl,
+                        map: map,
+                        preserveViewport: false // 自動で全てのピンが収まるようにズームを調整
+                    });
+
+                    // エラーチェック（KMLが読み込めない場合にアラートを出す）
+                    kmlLayer.addListener("status_changed", () => {
+                        if (kmlLayer.getStatus() !== "OK") {
+                            console.error("KMLの読み込みに失敗しました。ステータス: " + kmlLayer.getStatus());
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
