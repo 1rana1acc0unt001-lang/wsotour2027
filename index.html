@@ -16,83 +16,182 @@
                     <button onclick="setLanguage('en')" id="btn-en">EN</button>
                     <button onclick="setLanguage('de')" id="btn-de">DE</button>
                 </div>
-                <h1 class="jp">2027年 海外公演ツアー</h1>
+                <h1 class="jp">海外公演ツアー 2027</h1>
                 <h1 class="en">Overseas Tour 2027</h1>
                 <h1 class="de">Europatournee 2027</h1>
             </header>
 
-            <div class="schedule-list">
-                <div class="concert-item" id="item-1" onclick="flyTo(46.0744, 18.2374, 'item-1')">
-                    <div class="date">2/21</div>
-                    <div class="jp">ハンガリー・ペーチ<br><small>コダーイ・センター</small></div>
-                    <div class="en">Pécs, Hungary<br><small>Kodály Centre</small></div>
-                    <div class="de">Pécs, Ungarn<br><small>Kodály-Zentrum Pécs</small></div>
+            <div class="section-tabs">
+                <button onclick="showSection('overview')" id="tab-overview" class="active">
+                    <span class="jp">概略</span><span class="en">About</span><span class="de">Überblick</span>
+                </button>
+                <button onclick="showSection('schedule')" id="tab-schedule">
+                    <span class="jp">日程</span><span class="en">Schedule</span><span class="de">Termine</span>
+                </button>
+                <button onclick="showSection('program')" id="tab-program">
+                    <span class="jp">曲目</span><span class="en">Program</span><span class="de">Programm</span>
+                </button>
+            </div>
+
+            <div id="sec-overview" class="tab-content active">
+                <div class="text-block jp">
+                    <p>当楽団は2027年春、第17回目となる海外公演「ヨーロッパツアー2027」を催行いたします。音楽の殿堂であるドイツ・オーストリア各地を巡り、当楽団の歴史を彩ってきた重要なレパートリーや、オーケストラの醍醐味を凝縮した大曲を携えて、再びクラシックの本場へと挑みます。</p>
+                    
+                    <div class="commission-box">
+                        <h4>ツアー50周年記念 委嘱作品</h4>
+                        <p>早稲田大学交響楽団のツアー50周年を記念した委嘱楽曲を演奏いたします。<br>
+                        クリスチャン・ヨスト氏作曲、林英哲氏（和太鼓）出演の50周年記念作品「七人の侍」</p>
+                    </div>
+
+                    <h3>本ツアーの意義</h3>
+                    <p><strong>① 音楽による異文化交流の深化</strong><br>言葉の壁を超え、音楽という共通言語を通じて現地の方々と心を通わせることで、真の異文化交流を実現します。日本の学生オーケストラとして、私たちの持つ情熱と響きをヨーロッパの聴衆へ届けます。</p>
+                    <p><strong>② ワセオケの伝統と経験の継承</strong><br>100年を超える長い歴史の中で培われた、ワセオケ独自の海外公演の経験と精神を次世代へと継承します。</p>
+                    <p>2024年に6年ぶりの海外ツアーを再開させてから3年。さらなる進化を遂げたワセオケの響きを世界へ届けることができるのは、ひとえに皆様からの多大なるご協力とあたたかい応援のおかげです。</p>
                 </div>
-                <div class="concert-item" id="item-2" onclick="flyTo(48.1751, 14.5323, 'item-2')">
-                    <div class="date">2/23</div>
-                    <div class="jp">オーストリア・ザンクト・ファレンティン<br><small>ヴァレンティヌム</small></div>
-                    <div class="en">St. Valentin, Austria<br><small>Valentinum</small></div>
-                    <div class="de">St. Valentin, Österreich<br><small>Valentinum</small></div>
+
+                <div class="text-block en">
+                    <p>In the spring of 2027, our orchestra will embark on its 17th overseas tour, “European Tour 2027.” We will travel through Germany and Austria, bringing with us important repertoire and grand works, once again challenging the heartland of classical music.</p>
+                    <div class="commission-box">
+                        <h4>50th Anniversary Commissioned Work</h4>
+                        <p>We will be performing a commissioned piece commemorating the 50th anniversary of the Waseda Symphony Orchestra Tokyo's tour.<br>
+                        "Seven Samurai," a 50th-anniversary work composed by Christian Yost and featuring Eitetsu Hayashi (Japanese drums).</p>
+                    </div>
+                    <h3>Significance of the Tour</h3>
+                    <p><strong>1. Deepening intercultural exchange</strong><br>Transcending language barriers and connecting with local people through the common language of music.</p>
+                    <p><strong>2. Inheriting tradition and experience</strong><br>Passing on the unique spirit of Waseoke’s overseas performances to the next generation.</p>
                 </div>
-                <div class="concert-item" id="item-3" onclick="flyTo(48.3105, 14.2882, 'item-3')">
-                    <div class="date">2/24</div>
-                    <div class="jp">オーストリア・リンツ<br><small>ブルックナーハウス</small></div>
-                    <div class="en">Linz, Austria<br><small>Brucknerhaus Linz</small></div>
-                    <div class="de">Linz, Österreich<br><small>Brucknerhaus Linz</small></div>
+
+                <div class="text-block de">
+                    <p>Im Frühjahr 2027 wird unser Orchester seine 17. Auslandstournee, die „Europatournee 2027“, antreten. Wir werden durch Deutschland und Österreich reisen und uns erneut dem Herzland der klassischen Musik stellen.</p>
+                    <div class="commission-box">
+                        <h4>Auftragswerk zum 50. Jahrestag</h4>
+                        <p>Wir werden ein Auftragswerk zum 50. Jahrestag der Tournee des Waseda Symphony Orchestra Tokyo aufführen.<br>
+                        „Die sieben Samurai“, ein Werk zum 50. Jahrestag, komponiert von Christian Yost und mit Eitetsu Hayashi (japanischen Trommeln).</p>
+                    </div>
+                    <h3>Ziele der Tournee</h3>
+                    <p><strong>1. Vertiefung des interkulturellen Austauschs</strong><br>Verwirklichung eines echten interkulturellen Austauschs durch die gemeinsame Sprache der Musik.</p>
+                    <p><strong>2. Traditionen und Erfahrungen übernehmen</strong><br>Weitergabe des Geistes der Auslandsauftritte des Waseda-Orchesters an die nächste Generation.</p>
                 </div>
-                <div class="concert-item" id="item-4" onclick="flyTo(48.2014, 16.3725, 'item-4')">
-                    <div class="date">2/26</div>
-                    <div class="jp">オーストリア・ウィーン<br><small>楽友協会</small></div>
-                    <div class="en">Vienna, Austria<br><small>Musikverein</small></div>
-                    <div class="de">Wien, Österreich<br><small>Musikverein Wien</small></div>
+
+                <div class="sns-section">
+                    <h3 class="jp">公式SNS</h3>
+                    <h3 class="en">Official SNS</h3>
+                    <h3 class="de">Offizielle SNS</h3>
+                    <div class="sns-grid">
+                        <div class="sns-card">
+                            <a class="twitter-timeline" data-height="400" data-theme="light" href="https://twitter.com/wso_tour_2027?ref_src=twsrc%5Etfw">Tweets by wso_tour_2027</a> 
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </div>
+                        <div class="sns-card instagram-card">
+                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/wso_europe_tour_2027/" data-instgrm-version="14" style="width:100%;">
+                                <a href="https://www.instagram.com/wso_europe_tour_2027/">Instagram Profile</a>
+                            </blockquote>
+                            <script async src="//www.instagram.com/embed.js"></script>
+                        </div>
+                        <div class="sns-card">
+                            <div id="fb-root"></div>
+                            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v19.0"></script>
+                            <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=61573216892336" data-tabs="timeline" data-height="400" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="concert-item" id="item-5" onclick="flyTo(47.5546, 7.5901, 'item-5')">
-                    <div class="date">3/1</div>
-                    <div class="jp">スイス・バーゼル<br><small>シュタットカジノ・バーゼル</small></div>
-                    <div class="en">Basel, Switzerland<br><small>Stadtcasino Basel</small></div>
-                    <div class="de">Basel, Schweiz<br><small>Stadtcasino Basel</small></div>
+            </div>
+
+            <div id="sec-schedule" class="tab-content">
+                <div class="schedule-list">
+                    <div class="concert-item" id="item-1" onclick="flyTo(46.0744, 18.2374, 'item-1')">
+                        <div class="date">2/21</div>
+                        <div class="jp">ハンガリー・ペーチ<br><small>コダーイ・センター</small></div>
+                        <div class="en">Pécs, Hungary<br><small>Kodály Centre</small></div>
+                        <div class="de">Pécs, Ungarn<br><small>Kodály-Zentrum Pécs</small></div>
+                    </div>
+                    <div class="concert-item" id="item-2" onclick="flyTo(48.1751, 14.5323, 'item-2')">
+                        <div class="date">2/23</div>
+                        <div class="jp">オーストリア・ザンクト・ファレンティン<br><small>ヴァレンティヌム</small></div>
+                        <div class="en">St. Valentin, Austria<br><small>Valentinum</small></div>
+                        <div class="de">St. Valentin, Österreich<br><small>Valentinum</small></div>
+                    </div>
+                    <div class="concert-item" id="item-3" onclick="flyTo(48.3105, 14.2882, 'item-3')">
+                        <div class="date">2/24</div>
+                        <div class="jp">オーストリア・リンツ<br><small>ブルックナーハウス</small></div>
+                        <div class="en">Linz, Austria<br><small>Brucknerhaus Linz</small></div>
+                        <div class="de">Linz, Österreich<br><small>Brucknerhaus Linz</small></div>
+                    </div>
+                    <div class="concert-item" id="item-4" onclick="flyTo(48.2014, 16.3725, 'item-4')">
+                        <div class="date">2/26</div>
+                        <div class="jp">オーストリア・ウィーン<br><small>楽友協会</small></div>
+                        <div class="en">Vienna, Austria<br><small>Musikverein</small></div>
+                        <div class="de">Wien, Österreich<br><small>Musikverein Wien</small></div>
+                    </div>
+                    <div class="concert-item" id="item-5" onclick="flyTo(47.5546, 7.5901, 'item-5')">
+                        <div class="date">3/1</div>
+                        <div class="jp">スイス・バーゼル<br><small>シュタットカジノ・バーゼル</small></div>
+                        <div class="en">Basel, Switzerland<br><small>Stadtcasino Basel</small></div>
+                        <div class="de">Basel, Schweiz<br><small>Stadtcasino Basel</small></div>
+                    </div>
+                    <div class="concert-item" id="item-6" onclick="flyTo(48.7792, 9.1691, 'item-6')">
+                        <div class="date">3/4</div>
+                        <div class="jp">ドイツ・シュトゥットガルト<br><small>リーダーハレ</small></div>
+                        <div class="en">Stuttgart, Germany<br><small>Liederhalle Stuttgart</small></div>
+                        <div class="de">Stuttgart, Deutschland<br><small>Liederhalle Stuttgart</small></div>
+                    </div>
+                    <div class="concert-item" id="item-7" onclick="flyTo(50.9413, 6.9603, 'item-7')">
+                        <div class="date">3/7</div>
+                        <div class="jp">ドイツ・ケルン<br><small>ケルン・フィルハーモニー</small></div>
+                        <div class="en">Cologne, Germany<br><small>Cologne Philharmonie</small></div>
+                        <div class="de">Köln, Deutschland<br><small>Kölner Philharmonie</small></div>
+                    </div>
+                    <div class="concert-item" id="item-8" onclick="flyTo(48.1139, 11.5542, 'item-8')">
+                        <div class="date">3/8</div>
+                        <div class="jp">ドイツ・ミュンヘン<br><small>イザール・フィルハーモニー</small></div>
+                        <div class="en">Munich, Germany<br><small>Isarphilharmonie</small></div>
+                        <div class="de">München, Deutschland<br><small>Isarphilharmonie München</small></div>
+                    </div>
+                    <div class="concert-item" id="item-9" onclick="flyTo(52.5103, 13.3692, 'item-9')">
+                        <div class="date">3/9</div>
+                        <div class="jp">ドイツ・ベルリン<br><small>ベルリン・フィルハーモニー</small></div>
+                        <div class="en">Berlin, Germany<br><small>Berlin Philharmonie</small></div>
+                        <div class="de">Berlin, Deutschland<br><small>Berliner Philharmonie</small></div>
+                    </div>
+                    <div class="concert-item" id="item-10" onclick="flyTo(52.2625, 10.5311, 'item-10')">
+                        <div class="date">3/12</div>
+                        <div class="jp">ドイツ・ブラウンシュヴァイク<br><small>ブラウンシュヴァイク州立劇場</small></div>
+                        <div class="en">Braunschweig, Germany<br><small>Staatstheater Braunschweig</small></div>
+                        <div class="de">Braunschweig, Deutschland<br><small>Staatstheater Braunschweig</small></div>
+                    </div>
+                    <div class="concert-item" id="item-11" onclick="flyTo(50.0848, 8.2474, 'item-11')">
+                        <div class="date">3/13</div>
+                        <div class="jp">ドイツ・ヴィースバーデン<br><small>クアハウス・ヴィースバーデン</small></div>
+                        <div class="en">Wiesbaden, Germany<br><small>Kurhaus Wiesbaden</small></div>
+                        <div class="de">Wiesbaden, Deutschland<br><small>Kurhaus Wiesbaden</small></div>
+                    </div>
+                    <div class="concert-item" id="item-12" onclick="flyTo(50.1159, 8.6719, 'item-12')">
+                        <div class="date">3/15</div>
+                        <div class="jp">ドイツ・フランクフルト<br><small>アルテ・オーパー</small></div>
+                        <div class="en">Frankfurt, Germany<br><small>Alte Oper Frankfurt</small></div>
+                        <div class="de">Frankfurt am Main, Deutschland<br><small>Alte Oper Frankfurt</small></div>
+                    </div>
                 </div>
-                <div class="concert-item" id="item-6" onclick="flyTo(48.7792, 9.1691, 'item-6')">
-                    <div class="date">3/4</div>
-                    <div class="jp">ドイツ・シュトゥットガルト<br><small>リーダーハレ</small></div>
-                    <div class="en">Stuttgart, Germany<br><small>Liederhalle Stuttgart</small></div>
-                    <div class="de">Stuttgart, Deutschland<br><small>Liederhalle Stuttgart</small></div>
+            </div>
+
+            <div id="sec-program" class="tab-content">
+                <div class="program-list jp">
+                    <div class="prog-item">マーラー / 交響曲第5番 嬰ハ短調</div>
+                    <div class="prog-item">ホルスト / 組曲『惑星』</div>
+                    <div class="prog-item">ヨスト / 太鼓アンサンブルとオーケストラのための『七人の侍』</div>
+                    <div class="prog-item">外山雄三 / 管弦楽のためのラプソディ</div>
                 </div>
-                <div class="concert-item" id="item-7" onclick="flyTo(50.9413, 6.9603, 'item-7')">
-                    <div class="date">3/7</div>
-                    <div class="jp">ドイツ・ケルン<br><small>ケルン・フィルハーモニー</small></div>
-                    <div class="en">Cologne, Germany<br><small>Cologne Philharmonie</small></div>
-                    <div class="de">Köln, Deutschland<br><small>Kölner Philharmonie</small></div>
+                <div class="program-list en">
+                    <div class="prog-item">Gustav Mahler / Symphony No. 5 in C-sharp minor</div>
+                    <div class="prog-item">Gustav Holst / The Planets, Op. 32</div>
+                    <div class="prog-item">Christian Jost / Seven Samurai - Five Shadows of War</div>
+                    <div class="prog-item">Yuzo Toyama / Rhapsody for Orchestra</div>
                 </div>
-                <div class="concert-item" id="item-8" onclick="flyTo(48.1139, 11.5542, 'item-8')">
-                    <div class="date">3/8</div>
-                    <div class="jp">ドイツ・ミュンヘン<br><small>イザール・フィルハーモニー</small></div>
-                    <div class="en">Munich, Germany<br><small>Isarphilharmonie</small></div>
-                    <div class="de">München, Deutschland<br><small>Isarphilharmonie München</small></div>
-                </div>
-                <div class="concert-item" id="item-9" onclick="flyTo(52.5103, 13.3692, 'item-9')">
-                    <div class="date">3/9</div>
-                    <div class="jp">ドイツ・ベルリン<br><small>ベルリン・フィルハーモニー</small></div>
-                    <div class="en">Berlin, Germany<br><small>Berlin Philharmonie</small></div>
-                    <div class="de">Berlin, Deutschland<br><small>Berliner Philharmonie</small></div>
-                </div>
-                <div class="concert-item" id="item-10" onclick="flyTo(52.2625, 10.5311, 'item-10')">
-                    <div class="date">3/12</div>
-                    <div class="jp">ドイツ・ブラウンシュヴァイク<br><small>ブラウンシュヴァイク州立劇場</small></div>
-                    <div class="en">Braunschweig, Germany<br><small>Staatstheater Braunschweig</small></div>
-                    <div class="de">Braunschweig, Deutschland<br><small>Staatstheater Braunschweig</small></div>
-                </div>
-                <div class="concert-item" id="item-11" onclick="flyTo(50.0848, 8.2474, 'item-11')">
-                    <div class="date">3/13</div>
-                    <div class="jp">ドイツ・ヴィースバーデン<br><small>クアハウス・ヴィースバーデン</small></div>
-                    <div class="en">Wiesbaden, Germany<br><small>Kurhaus Wiesbaden</small></div>
-                    <div class="de">Wiesbaden, Deutschland<br><small>Kurhaus Wiesbaden</small></div>
-                </div>
-                <div class="concert-item" id="item-12" onclick="flyTo(50.1159, 8.6719, 'item-12')">
-                    <div class="date">3/15</div>
-                    <div class="jp">ドイツ・フランクフルト<br><small>アルテ・オーパー</small></div>
-                    <div class="en">Frankfurt, Germany<br><small>Alte Oper Frankfurt</small></div>
-                    <div class="de">Frankfurt am Main, Deutschland<br><small>Alte Oper Frankfurt</small></div>
+                <div class="program-list de">
+                    <div class="prog-item">Gustav Mahler / Sinfonie Nr. 5 in cis-Moll</div>
+                    <div class="prog-item">Gustav Holst / Die Planeten, Op. 32</div>
+                    <div class="prog-item">Christian Jost / Die sieben Samurai – Fünf Schatten des Krieges</div>
+                    <div class="prog-item">Yuzo Toyama / Rhapsodie für Orchester</div>
                 </div>
             </div>
         </div>
@@ -102,7 +201,7 @@
         </div>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVKVotbia0cHkKC6KXwYHARrV2syqmFFY&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     <script src="script.js"></script>
 </body>
 </html>

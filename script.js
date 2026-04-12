@@ -1,6 +1,5 @@
 let map;
-let kmlLayer;
-// 初期の表示位置（ヨーロッパ全体）を定義
+let currentAnimation = null;
 const HOME_CENTER = { lat: 49.0, lng: 12.0 };
 const HOME_ZOOM = 5;
 
@@ -8,82 +7,74 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: HOME_ZOOM,
         center: HOME_CENTER,
-        styles: [
-            { "featureType": "poi", "stylers": [{ "visibility": "off" }] }
-        ],
-        // 滑らかなアニメーションのためにジェスチャー制御などを最適化
-        gestureHandling: "greedy"
+        styles: [{ "featureType": "poi", "stylers": [{ "visibility": "off" }] }],
+        gestureHandling: "greedy",
+        disableDefaultUI: false
     });
 
     const kmlUrl = "https://raw.githubusercontent.com/1rana1acc0unt001-lang/wsotour2027/main/JP.kml?v=" + new Date().getTime();
-    kmlLayer = new google.maps.KmlLayer({
+    new google.maps.KmlLayer({
         url: kmlUrl,
         map: map,
         preserveViewport: true
     });
 }
 
-/**
- * トグル機能付き・スローアニメーション移動
- */
-function flyTo(lat, lng, elementId) {
-    if (!map) return;
+function showSection(sectionId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.section-tabs button').forEach(el => el.classList.remove('active'));
+    document.getElementById('sec-' + sectionId).classList.add('active');
+    document.getElementById('tab-' + sectionId).classList.add('active');
+    if (sectionId !== 'schedule') resetView();
+}
 
+function animateFlight(targetLat, targetLng, targetZoom, duration = 3000) {
+    if (currentAnimation) cancelAnimationFrame(currentAnimation);
+    const startPos = map.getCenter();
+    const startZoom = map.getZoom();
+    const startTime = performance.now();
+
+    function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+    function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = easeInOutCubic(progress);
+
+        map.setCenter({
+            lat: startPos.lat() + (targetLat - startPos.lat()) * ease,
+            lng: startPos.lng() + (targetLng - startPos.lng()) * ease
+        });
+        
+        let curZoom;
+        if (progress < 0.5) {
+            curZoom = startZoom + (Math.min(startZoom, targetZoom) - 0.5 - startZoom) * easeInOutCubic(progress * 2);
+        } else {
+            const mid = Math.min(startZoom, targetZoom) - 0.5;
+            curZoom = mid + (targetZoom - mid) * easeInOutCubic((progress - 0.5) * 2);
+        }
+        map.setZoom(curZoom);
+        if (progress < 1) currentAnimation = requestAnimationFrame(step);
+    }
+    currentAnimation = requestAnimationFrame(step);
+}
+
+function flyTo(lat, lng, elementId) {
     const targetEl = document.getElementById(elementId);
-    
-    // --- トグル判定 ---
-    // すでにアクティブな項目をもう一度押した場合
     if (targetEl.classList.contains('active')) {
         resetView();
         return;
     }
-
-    // --- 通常の移動（アクティブ化） ---
-    // 他の項目のアクティブを解除
     document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
     targetEl.classList.add('active');
-    targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-    // スロー演出の設定
-    const midZoom = 9;  // 一旦引く時の高さ
-    const endZoom = 11; // 最終的な高さ
-
-    // 手順1: ゆっくりズームアウト
-    map.setZoom(midZoom);
-
-    // 手順2: ズームアウトが落ち着くのを待ってから「ゆっくり」パン
-    // setTimeoutの時間を長めに設定して余韻を作る
-    setTimeout(() => {
-        // panToは標準で滑らかだが、あえて少し時間差を置いて目的地へ
-        map.panTo({ lat: lat, lng: lng });
-
-        // 手順3: 移動が完全に終わってからズームイン
-        google.maps.event.addListenerOnce(map, 'idle', () => {
-            // idleイベント（地図の動きが止まった時）からさらに少し待ってズーム
-            setTimeout(() => {
-                map.setZoom(endZoom);
-            }, 400); 
-        });
-    }, 600); // ズームアウト後の待ち時間を増加
+    animateFlight(lat, lng, 11, 3000);
 }
 
-/**
- * 地図をヨーロッパ全体に戻すリセット関数
- */
 function resetView() {
-    // 全てのアクティブを解除
     document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
-
-    // ゆっくりズームアウトして戻る
-    map.setZoom(HOME_ZOOM);
-    setTimeout(() => {
-        map.panTo(HOME_CENTER);
-    }, 500);
+    animateFlight(HOME_CENTER.lat, HOME_CENTER.lng, HOME_ZOOM, 2500);
 }
 
-/**
- * 言語切り替え
- */
 function setLanguage(lang) {
     document.body.className = 'lang-' + lang;
     document.querySelectorAll('.lang-switcher button').forEach(btn => btn.classList.remove('active'));
