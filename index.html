@@ -3,31 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2027ツアーページ/デモ版</title>
+    <title>Overseas Tour 2027</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
+<body class="lang-jp"> <div class="container">
         <div class="content-container">
             <header>
-                <h1>2027 Overseas Tour</h1>
-                <p>50th Anniversary Tour Schedule</p>
+                <div class="lang-switcher">
+                    <button onclick="setLanguage('jp')" id="btn-jp" class="active">JP</button>
+                    <button onclick="setLanguage('en')" id="btn-en">EN</button>
+                    <button onclick="setLanguage('de')" id="btn-de">DE</button>
+                </div>
+                <h1 class="jp">2027年 海外公演ツアー</h1>
+                <h1 class="en">Overseas Tour 2027</h1>
+                <h1 class="de">Europatournee 2027</h1>
             </header>
 
-            <section class="schedule">
-                <div class="concert-item" onclick="jumpTo(48.2085, 16.3731)">
-                    <span class="date">2027.XX.XX</span>
-                    <h3>Wien / ウィーン</h3>
-                    <p>会場：楽友協会 大ホール (Musikverein)</p>
+            <div class="schedule-list">
+                <div class="concert-item" id="item-1" onclick="jumpTo(46.0744, 18.2374, 'item-1')">
+                    <div class="date">2/21</div>
+                    <div class="jp">ハンガリー・ペーチ<br><small>コダーイ・センター</small></div>
+                    <div class="en">Pécs, Hungary<br><small>Kodály Centre</small></div>
+                    <div class="de">Pécs, Ungarn<br><small>Kodály-Zentrum Pécs</small></div>
                 </div>
 
-                <div class="concert-item" onclick="jumpTo(52.5094, 13.3761)">
-                    <span class="date">2027.XX.XX</span>
-                    <h3>Berlin / ベルリン</h3>
-                    <p>会場：ベルリン・フィルハーモニー (Philharmonie)</p>
+                <div class="concert-item" id="item-2" onclick="jumpTo(48.1751, 14.5323, 'item-2')">
+                    <div class="date">2/23</div>
+                    <div class="jp">オーストリア・ザンクト・ファレンティン<br><small>ヴァレンティヌム</small></div>
+                    <div class="en">St. Valentin, Austria<br><small>Valentinum</small></div>
+                    <div class="de">St. Valentin, Österreich<br><small>Valentinum</small></div>
                 </div>
-                
-                </section>
+
+                <div class="concert-item" id="item-3" onclick="jumpTo(48.3105, 14.2882, 'item-3')">
+                    <div class="date">2/24</div>
+                    <div class="jp">オーストリア・リンツ<br><small>ブルックナーハウス</small></div>
+                    <div class="en">Linz, Austria<br><small>Brucknerhaus Linz</small></div>
+                    <div class="de">Linz, Österreich<br><small>Brucknerhaus Linz</small></div>
+                </div>
+
+                <div class="concert-item" id="item-4" onclick="jumpTo(48.2014, 16.3725, 'item-4')">
+                    <div class="date">2/26</div>
+                    <div class="jp">オーストリア・ウィーン<br><small>楽友協会</small></div>
+                    <div class="en">Vienna, Austria<br><small>Musikverein</small></div>
+                    <div class="de">Wien, Österreich<br><small>Musikverein Wien</small></div>
+                </div>
+
+                <div class="concert-item" id="item-5" onclick="jumpTo(47.5546, 7.5901, 'item-5')">
+                    <div class="date">3/1</div>
+                    <div class="jp">スイス・バーゼル<br><small>シュタットカジノ・バーゼル</small></div>
+                    <div class="en">Basel, Switzerland<br><small>Stadtcasino Basel</small></div>
+                    <div class="de">Basel, Schweiz<br><small>Stadtcasino Basel</small></div>
+                </div>
+
+                <div class="concert-item" id="item-6" onclick="jumpTo(48.7792, 9.1691, 'item-6')">
+                    <div class="date">3/4</div>
+                    <div class="jp">ドイツ・シュトゥットガルト<br><small>リーダーハレ</small></div>
+                    <div class="en">Stuttgart, Germany<br><small>Liederhalle Stuttgart</small></div>
+                    <div class="de">Stuttgart, Deutschland<br><small>Liederhalle Stuttgart</small></div>
+                </div>
+
+                <div class="concert-item" id="item-7" onclick="jumpTo(50.9413, 6.9603, 'item-7')">
+                    <div class="date">3/7</div>
+                    <div class="jp">ドイツ・ケルン<br><small>ケルン・フィルハーモニー</small></div>
+                    <div class="en">Cologne, Germany<br><small>Cologne Philharmonie</small></div>
+                    <div class="de">Köln, Deutschland<br><small>Kölner Philharmonie</small></div>
+                </div>
+
+                <div class="concert-item" id="item-8" onclick="jumpTo(48.1139, 11.5542, 'item-8')">
+                    <div class="date">3/8</div>
+                    <div class="jp">ドイツ・ミュンヘン<br><small>イザール・フィルハーモニー</small></div>
+                    <div class="en">Munich, Germany<br><small>Isarphilharmonie</small></div>
+                    <div class="de">München, Deutschland<br><small>Isarphilharmonie München</small></div>
+                </div>
+
+                <div class="concert-item" id="item-9" onclick="jumpTo(52.5103, 13.3692, 'item-9')">
+                    <div class="date">3/9</div>
+                    <div class="jp">ドイツ・ベルリン<br><small>ベルリン・フィルハーモニー</small></div>
+                    <div class="en">Berlin, Germany<br><small>Berlin Philharmonie</small></div>
+                    <div class="de">Berlin, Deutschland<br><small>Berliner Philharmonie</small></div>
+                </div>
+
+                <div class="concert-item" id="item-10" onclick="jumpTo(52.2625, 10.5311, 'item-10')">
+                    <div class="date">3/12</div>
+                    <div class="jp">ドイツ・ブラウンシュヴァイク<br><small>ブラウンシュヴァイク州立劇場</small></div>
+                    <div class="en">Braunschweig, Germany<br><small>Staatstheater Braunschweig</small></div>
+                    <div class="de">Braunschweig, Deutschland<br><small>Staatstheater Braunschweig</small></div>
+                </div>
+
+                <div class="concert-item" id="item-11" onclick="jumpTo(50.0848, 8.2474, 'item-11')">
+                    <div class="date">3/13</div>
+                    <div class="jp">ドイツ・ヴィースバーデン<br><small>クアハウス・ヴィースバーデン</small></div>
+                    <div class="en">Wiesbaden, Germany<br><small>Kurhaus Wiesbaden</small></div>
+                    <div class="de">Wiesbaden, Deutschland<br><small>Kurhaus Wiesbaden</small></div>
+                </div>
+
+                <div class="concert-item" id="item-12" onclick="jumpTo(50.1159, 8.6719, 'item-12')">
+                    <div class="date">3/15</div>
+                    <div class="jp">ドイツ・フランクフルト<br><small>アルテ・オーパー</small></div>
+                    <div class="en">Frankfurt, Germany<br><small>Alte Oper Frankfurt</small></div>
+                    <div class="de">Frankfurt am Main, Deutschland<br><small>Alte Oper Frankfurt</small></div>
+                </div>
+            </div>
         </div>
 
         <div class="map-container">
