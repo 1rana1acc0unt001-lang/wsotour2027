@@ -1,51 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2027ツアーページ/デモ版</title>
-    <link rel="stylesheet" id="tour-2027-css" href="style.css" type="text/css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="content-container">
-            あああ
+            <header>
+                <h1>2027 Overseas Tour</h1>
+                <p>50th Anniversary Tour Schedule</p>
+            </header>
+
+            <section class="schedule">
+                <div class="concert-item" onclick="jumpTo(48.2085, 16.3731)">
+                    <span class="date">2027.XX.XX</span>
+                    <h3>Wien / ウィーン</h3>
+                    <p>会場：楽友協会 大ホール (Musikverein)</p>
+                </div>
+
+                <div class="concert-item" onclick="jumpTo(52.5094, 13.3761)">
+                    <span class="date">2027.XX.XX</span>
+                    <h3>Berlin / ベルリン</h3>
+                    <p>会場：ベルリン・フィルハーモニー (Philharmonie)</p>
+                </div>
+                
+                </section>
         </div>
+
         <div class="map-container">
-            <!-- <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1M_Ie8nUx1TqurwuAm9yh6EyJrb7Rpq0&ehbc=2E312F&noprof=1" width="640" height="480"></iframe> -->
             <div id="map"></div>
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVKVotbia0cHkKC6KXwYHARrV2syqmFFY&callback=initMap" async defer></script>
-
-            <script>
-                function initMap() {
-                    // 地図の初期設定（ヨーロッパ付近を中心に）
-                    const map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 5,
-                        center: { lat: 48.2082, lng: 16.3738 }, // ウィーン付近
-                        // 地図のデザインをカスタマイズしたい場合はここに追加
-                    });
-
-                    // KMLファイルのURL（GitHub PagesのRawリンクなどを指定）
-                    // 注意: ローカルのファイルパス（C:\...）では動きません。必ずURLが必要です。
-                    const kmlUrl = "https://raw.githubusercontent.com/1rana1acc0unt001-lang/wsotour2027/main/JP.kml";
-
-                    // KMLレイヤーを作成して地図に追加
-                    const kmlLayer = new google.maps.KmlLayer({
-                        url: kmlUrl,
-                        map: map,
-                        preserveViewport: false // 自動で全てのピンが収まるようにズームを調整
-                    });
-
-                    // エラーチェック（KMLが読み込めない場合にアラートを出す）
-                    kmlLayer.addListener("status_changed", () => {
-                        if (kmlLayer.getStatus() !== "OK") {
-                            console.error("KMLの読み込みに失敗しました。ステータス: " + kmlLayer.getStatus());
-                        }
-                    });
-                }
-            </script>
         </div>
     </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVKVotbia0cHkKC6KXwYHARrV2syqmFFY&callback=initMap" async defer></script>
+    <script src="script.js"></script>
 </body>
 </html>

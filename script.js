@@ -1,17 +1,39 @@
+let map;
+
 function initMap() {
-  // 地図の基本設定（ヨーロッパ全体が見えるように調整）
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 5,
-    center: { lat: 48.2082, lng: 16.3738 }, // ウィーン付近
-    styles: [ /* ここに楽団のイメージに合わせた地図デザインを挿入可能 */ ]
-  });
+    // 地図の初期化
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+        center: { lat: 48.2082, lng: 16.3738 }, // ウィーン付近
+        // 地図をシンプルにするためのスタイル設定（任意）
+        styles: [
+            { "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#444444" }] },
+            { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2f2f2" }] }
+        ]
+    });
 
-  // あなたのKMLファイルが参照しているURLを直接指定
-  const kmlUrl = "http://www.google.com/maps/d/kml?forcekml=1&mid=19iVREu6_ZInWc_nU9fQ80G_vH7uJ20A";
+    // KMLレイヤーの読み込み
+    // キャッシュ回避のためタイムスタンプを付与
+    const kmlUrl = "https://raw.githubusercontent.com/1rana1acc0unt001-lang/wsotour2027/main/JP.kml?v=" + new Date().getTime();
 
-  const kmlLayer = new google.maps.KmlLayer({
-    url: kmlUrl,
-    suppressInfoWindows: false, // trueにすると、独自のポップアップを自作できます
-    map: map,
-  });
+    const kmlLayer = new google.maps.KmlLayer({
+        url: kmlUrl,
+        map: map,
+        preserveViewport: false // すべてのピンが見えるように自動調整
+    });
+
+    // KML読み込みエラーのチェック
+    kmlLayer.addListener("status_changed", () => {
+        if (kmlLayer.getStatus() !== "OK") {
+            console.error("KML読み込みエラー:", kmlLayer.getStatus());
+        }
+    });
+}
+
+// 公演地リストをクリックしたときに地図を動かす関数
+function jumpTo(lat, lng) {
+    if (map) {
+        map.panTo({ lat: lat, lng: lng });
+        map.setZoom(14); // 会場周辺までズーム
+    }
 }

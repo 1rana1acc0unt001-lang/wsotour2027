@@ -1,12 +1,65 @@
+/* 基本設定 */
+* { box-sizing: border-box; }
 body {
     margin: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 .container {
-    width: 100%;
     display: flex;
+    flex-direction: row;
+    height: 100vh; /* 画面全体の高さ */
+    overflow: hidden;
 }
 
-.container .content-container {
-    width: 50vw;
+/* スケジュールエリア */
+.content-container {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #1a365d; /* 濃紺 */
+    border-bottom: 2px solid #c5a059; /* ゴールド */
+    padding-bottom: 10px;
+}
+
+.concert-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.concert-item:hover {
+    background-color: #f0f4f8;
+}
+
+.concert-item h3 { margin: 5px 0; font-size: 1.2rem; }
+.date { font-weight: bold; color: #c5a059; }
+
+/* 地図エリア */
+.map-container {
+    flex: 2;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* レスポンシブ対応（スマホの場合は縦並び） */
+@media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .content-container { flex: none; height: 40%; }
+    .map-container { flex: 1; }
 }
