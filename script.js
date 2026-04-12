@@ -1,19 +1,18 @@
 let map;
 let kmlLayer;
+// 初期の表示位置（ヨーロッパ全体）を定義
+const HOME_CENTER = { lat: 49.0, lng: 12.0 };
+const HOME_ZOOM = 5;
 
 function initMap() {
-    // 初期表示：ヨーロッパを広域で表示
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 5,
-        center: { lat: 49.0, lng: 12.0 },
+        zoom: HOME_ZOOM,
+        center: HOME_CENTER,
         styles: [
-            { "featureType": "poi", "stylers": [{ "visibility": "off" }] },
-            { "featureType": "transit", "stylers": [{ "visibility": "off" }] }
+            { "featureType": "poi", "stylers": [{ "visibility": "off" }] }
         ],
-        disableDefaultUI: false,
-        zoomControl: true,
-        mapTypeControl: false,
-        streetViewControl: false
+        // 滑らかなアニメーションのためにジェスチャー制御などを最適化
+        gestureHandling: "greedy"
     });
 
     const kmlUrl = "https://raw.githubusercontent.com/1rana1acc0unt001-lang/wsotour2027/main/JP.kml?v=" + new Date().getTime();
@@ -25,41 +24,61 @@ function initMap() {
 }
 
 /**
- * 動きを強調したズーム移動関数
+ * トグル機能付き・スローアニメーション移動
  */
 function flyTo(lat, lng, elementId) {
     if (!map) return;
 
-    // UI更新
-    document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
     const targetEl = document.getElementById(elementId);
+    
+    // --- トグル判定 ---
+    // すでにアクティブな項目をもう一度押した場合
+    if (targetEl.classList.contains('active')) {
+        resetView();
+        return;
+    }
+
+    // --- 通常の移動（アクティブ化） ---
+    // 他の項目のアクティブを解除
+    document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
     targetEl.classList.add('active');
     targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-    const currentZoom = map.getZoom();
-    const midZoom = 6;  // 移動中（引いた状態）のズーム
-    const endZoom = 11; // 目的地（寄った状態）のズーム：街全体が見える程度
+    // スロー演出の設定
+    const midZoom = 9;  // 一旦引く時の高さ
+    const endZoom = 11; // 最終的な高さ
 
-    // 1. まず少し引いて（ズームアウト）、移動の「助走」をつける
-    if (currentZoom > midZoom) {
-        map.setZoom(midZoom);
-        
-        // ズームアウトが少し進んでから移動を開始
-        setTimeout(() => {
-            map.panTo({ lat: lat, lng: lng });
-            
-            // 移動が終わるタイミングを見計らってズームイン
-            google.maps.event.addListenerOnce(map, 'idle', () => {
-                map.setZoom(endZoom);
-            });
-        }, 250);
-    } else {
-        // すでに引いている場合は直接移動してズーム
+    // 手順1: ゆっくりズームアウト
+    map.setZoom(midZoom);
+
+    // 手順2: ズームアウトが落ち着くのを待ってから「ゆっくり」パン
+    // setTimeoutの時間を長めに設定して余韻を作る
+    setTimeout(() => {
+        // panToは標準で滑らかだが、あえて少し時間差を置いて目的地へ
         map.panTo({ lat: lat, lng: lng });
+
+        // 手順3: 移動が完全に終わってからズームイン
         google.maps.event.addListenerOnce(map, 'idle', () => {
-            map.setZoom(endZoom);
+            // idleイベント（地図の動きが止まった時）からさらに少し待ってズーム
+            setTimeout(() => {
+                map.setZoom(endZoom);
+            }, 400); 
         });
-    }
+    }, 600); // ズームアウト後の待ち時間を増加
+}
+
+/**
+ * 地図をヨーロッパ全体に戻すリセット関数
+ */
+function resetView() {
+    // 全てのアクティブを解除
+    document.querySelectorAll('.concert-item').forEach(item => item.classList.remove('active'));
+
+    // ゆっくりズームアウトして戻る
+    map.setZoom(HOME_ZOOM);
+    setTimeout(() => {
+        map.panTo(HOME_CENTER);
+    }, 500);
 }
 
 /**
